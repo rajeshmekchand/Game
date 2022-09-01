@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .game {
+            width: 1200px;
+            height: 600px;
+            border: 1px solid #000000;
+            margin: auto;
+        }
+
+        #dino {
+            width: 70px;
+            height: 70px;
+            background-image: url(t-rex.png);
+            background-size: auto 70px;
+            position: relative;
+            top: 143px;
+        }
+
+        .jump {
+            animation: jump 0.3s linear;
+        }
+
+        @keyframes jump {
+            0% {
+                top: 143px;
+            }
+
+            30% {
+                top: 115px;
+            }
+
+            50% {
+                top: 70px;
+            }
+
+            80% {
+                top: 115px;
+            }
+
+            100% {
+                top: 143px;
+            }
+        }
+
+        #cactus {
+            width: 70px;
+            height: 70px;
+            position: relative;
+            top: 91px;
+            left: 580px;
+            background-image: url(cactus.png);
+            background-size: 20px 40px;
+            animation: cactus-block 2.5s infinite linear;
+        }
+
+        @keyframes cactus-block {
+            0% {
+                left: 600px;
+
+            }
+
+            100% {
+                left: -20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game">
+        <div id="dino"></div>
+        <div id="cactus"></div>
+    </div>
+    <script>
+        const dino = document.getElementById("dino");
+        const cactus = document.getElementById("cactus")
+        function jump() {
+            if (dispatchEvent.classList != "jump") {
+                setTimeout(function () {
+                    dino.classList.remove("jump");
+                }, 300)
+            }
+        }
+        let checkAlive = setInterval(function () {
+            let dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue("top"));
+            let cactusLeft = parseInt(Window.getComputedStyle(cactus).getPropertyValue("left"));
+            if (cactusLeft > 0 && cactusLeft < 70 && dinoTop >= 143) {
+                dino.style.animationPlayState = 'paused';
+                cactus.style.animationPlayState = 'paused';
+                alert("whoops ! game over :(");
+                window.location.reload();
+            }
+        }, 10);
+        document.getElementById("keydown", function (event) {
+            jump();
+        })
+    </script>
+</body>
+
+</html>
